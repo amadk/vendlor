@@ -1,5 +1,5 @@
 serverbuild/
-
+client/assets/build/
 # Logs
 logs
 *.log
