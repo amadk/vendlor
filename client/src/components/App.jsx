@@ -73,7 +73,6 @@ export default class App extends React.Component {
                 <Route exact path="/editproduct/:productId" component={AddProduct} />
                 <Route exact path="/addproduct" component={AddProduct} />
                 <Route exact path="/cart" component={Cart} />
-                <Route exact path="/checkout" component={Checkout} />
                 <Route exact path="/track" component={Track} />
                 <Route exact path="/return" component={Return} />
                 <Route exact path="/profile" component={Profile} />

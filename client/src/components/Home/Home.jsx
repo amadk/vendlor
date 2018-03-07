@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Segment, Table, Button, Menu, Icon, Modal, Input, Form, Dropdown, Card, Image, Grid, Loader } from 'semantic-ui-react'
+import { Segment, Dimmer, Header, Table, Button, Menu, Icon, Modal, Input, Form, Dropdown, Card, Image, Grid, Loader } from 'semantic-ui-react'
 import axios from 'axios';
 import request from 'superagent';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -11,6 +11,7 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      homeRequestComplete: false,
       products: []
     }
   }
@@ -39,7 +40,8 @@ export default class Home extends React.Component {
     .then(function (response) {
       console.log(response)
       self.setState({
-        products: response.data
+        products: response.data,
+        homeRequestComplete: true
       })
     })
     .catch(function (error) {
@@ -49,29 +51,47 @@ export default class Home extends React.Component {
 
 
   render() {
-    const { products } = this.state;
-    return (
-      <div>
-        <Grid>
-          {products.map((product, index) => (
-            <Grid.Column mobile={16} tablet={4} computer={4} key={index}>
-              <Card fluid >
-                <Image src={'https://s3.ap-south-1.amazonaws.com/dibba/'+product.primaryPhoto} as={Link} to={'/products/'+product.id} />
-                <Card.Content as={Link} to={'/products/'+product.id}>
-                  <Card.Header>
-                    {product.title}
-                  </Card.Header>
-                  <Card.Meta>
-                    <span className='date'>
-                      Price: {product.price}
-                    </span>
-                  </Card.Meta>
-                </Card.Content>
-              </Card>
-            </Grid.Column>
-          ))}
-        </Grid>
-      </div>
-    );
+    const { products, homeRequestComplete } = this.state;
+    if (!homeRequestComplete) {
+      return (
+        <div>
+          <Dimmer inverted active>
+            <Loader />
+          </Dimmer>
+        </div>
+      )
+    } else {
+      if (products.length === 0) {
+        return (
+          <Segment textAlign='center' padded='very'>
+            <Header as='h1'>No products found</Header>
+          </Segment>
+        )
+      } else {
+        return (
+          <div>
+            <Grid>
+              {products.map((product, index) => (
+                <Grid.Column mobile={16} tablet={4} computer={4} key={index}>
+                  <Card fluid >
+                    <Image src={'https://s3.ap-south-1.amazonaws.com/dibba/'+product.primaryPhoto} as={Link} to={'/products/'+product.id} />
+                    <Card.Content as={Link} to={'/products/'+product.id}>
+                      <Card.Header>
+                        {product.title}
+                      </Card.Header>
+                      <Card.Meta>
+                        <span className='date'>
+                          Price: {product.price}
+                        </span>
+                      </Card.Meta>
+                    </Card.Content>
+                  </Card>
+                </Grid.Column>
+              ))}
+            </Grid>
+          </div>
+        );
+      }
+    }
   }
 }
