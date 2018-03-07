@@ -30,7 +30,6 @@ export default class Profile extends React.Component {
 
     axios.get('/api/accounts')
     .then(response => {
-      console.log(response)
       const { sellerType, availableBalance, pendingBalance } = response.data;     
       self.setState({
         sellerType: sellerType || '',
@@ -59,7 +58,6 @@ export default class Profile extends React.Component {
         sellerType: sellerType,
       })
       .then(response => {
-        console.log(response);
         self.setState({loading: false})
         self.getAccount()
         self.openPopup(response.data);

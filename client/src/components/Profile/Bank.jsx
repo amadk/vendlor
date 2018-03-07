@@ -35,7 +35,6 @@ export default class Profile extends React.Component {
 
     axios.get('/api/bank_accounts')
     .then(response => {
-      console.log(response)
       self.setState({loading: false})
       if (response.data.length > 0) {
         const { id, bankName, accountHolderName, accountNumber, accountNumberLast4, ibanLast4, status } = response.data[0];
@@ -67,7 +66,6 @@ export default class Profile extends React.Component {
         iban: iban
       })
       .then(response => {
-        console.log(response);
         self.setState({loading: false})
         self.getBankAccount();
         self.setState({

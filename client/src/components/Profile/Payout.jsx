@@ -33,7 +33,6 @@ export default class Profile extends React.Component {
 
     axios.get('/api/payouts')
     .then(response => {
-      console.log(response)
       self.setState({loading: false})
       self.setState({payouts: response.data})
     })
@@ -46,7 +45,6 @@ export default class Profile extends React.Component {
     var self = this;
     axios.get('/api/bank_accounts')
     .then(response => {
-      console.log(response)
       if (response.data.length > 0) {
         self.setState({
           bank: response.data[0]
@@ -69,7 +67,6 @@ export default class Profile extends React.Component {
         destination: bank.id
       })
       .then(response => {
-        console.log(response);
         self.setState({loading: false})
         if (response.data.error) {
           self.setState({

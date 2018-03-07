@@ -50,13 +50,11 @@ class AddProduct extends React.Component {
 
   getProducts (callback) {
     var self = this;
-    console.log(this.props.match.params.productId)
     var productId = this.props.match.params.productId;
 
     if (productId) {
       axios.get('/api/products/'+productId)
       .then(response => {
-        console.log(response)
         self.setState(response.data)
         self.setState({
           selectedAddressId: response.data.pickupAddressId
@@ -75,7 +73,6 @@ class AddProduct extends React.Component {
 
     axios.get('/api/products/'+productId+'/photos')
     .then(response => {
-      console.log(response)
       self.setState({
         photos: response.data.map(photo => ('https://s3.ap-south-1.amazonaws.com/dibba/'+photo.key)),
         photosLength: response.data.length
@@ -202,7 +199,6 @@ class AddProduct extends React.Component {
       live: true
     })
     .then(response => {
-      console.log(response);
       self.setState({loading: true})
       callback(response.data.id);
     })
@@ -225,11 +221,9 @@ class AddProduct extends React.Component {
       Object.keys(uploadData).forEach(function(key) {
         req.field(key, uploadData[key]);
       });
-      console.log(uploadData, req)
 
       req.end((err, res) => {
         if (err) console.log(err);
-        console.log('File uploaded!', res);
         self.openPopup('Product saved successfully');
         self.setState({loading: false})
         window.location.href = '/editproduct/'+newProductId;
@@ -250,7 +244,6 @@ class AddProduct extends React.Component {
         photos: photosToBeRemoved
       })
       .then(response => {
-        console.log(response);
         callback()
       })
       .catch(function (error) {
@@ -292,7 +285,6 @@ class AddProduct extends React.Component {
     var self = this;
     if (this.state.photosLength > 0) {
       var photos = this.state.photos.concat(this.state.newPhotos);
-      console.log(value, photos.length)
       var photoToBeRemoved = photos.splice(value, 1)[0];
 
       this.setState({

@@ -32,12 +32,11 @@ class Product extends React.Component {
 
   getProducts (callback) {
     var self = this;
-    console.log(this.props.match.params.productId)
     var productId = this.props.match.params.productId;
 
     axios.get('/api/products/'+productId)
     .then(response => {
-      console.log(response)
+
       if (response.data !== 'No product found') {
         self.setState(response.data)
         callback();
@@ -52,10 +51,8 @@ class Product extends React.Component {
   getProductPhotos () {
     var self = this;
     var productId = this.props.match.params.productId
-    console.log('get product photos')
     axios.get('/api/products/'+productId+'/photos')
     .then(response => {
-      console.log(response)
       self.setState({
         photos: response.data.map(photo => ('https://s3.ap-south-1.amazonaws.com/dibba/'+photo.key)),
         photosLength: response.data.length,
@@ -95,7 +92,6 @@ class Product extends React.Component {
         quantity: self.state.quantityInput
       })
       .then(response => {
-        console.log(response)
         self.setState({
           popupContent: response.data,
           isPopupOpen: true 

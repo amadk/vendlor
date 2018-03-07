@@ -41,8 +41,6 @@ export default class Address extends React.Component {
       mobile: mobile ? mobile.substr(4) : '',
       additionalInfo: additionalInfo || '',
       searchQuery: googleMapsAddress || ''
-    }, () => {
-      console.log(self.state)      
     })
     if (!this.props.addressToEdit.mobile || this.props.addressToEdit.mobile.length === 0 ) {
       this.getPhone();      
@@ -54,7 +52,7 @@ export default class Address extends React.Component {
 
     axios.get('/api/accounts')
     .then(function (response) {
-      console.log(response);
+
       const { mobile } = response.data;
       self.setState({
         mobile: mobile ? mobile.substr(4) : ''
@@ -69,9 +67,7 @@ export default class Address extends React.Component {
 
 
   createAddress () {
-    console.log('create address')
     var self = this;
-    console.log(this.state)
     const { googleMapsPlaceId, mobile, googleMapsAddress, suiteNumber, fullName, addressLine1, addressLine2, city, country, additionalInfo } = this.state
 
 
@@ -88,7 +84,6 @@ export default class Address extends React.Component {
         additionalInfo: additionalInfo
       })
       .then(function (response) {
-        console.log(response);
         self.props.closeAddressForm()
       })
       .catch(function (error) {
@@ -100,7 +95,6 @@ export default class Address extends React.Component {
 
 
   handleAddressChange (e, {value, searchQuery}) { 
-    console.log('onChange', value, searchQuery)
     var addressOption = this.state.addressOptions.filter(option => option.value===value)[0];
     addressOption = addressOption ? addressOption.text : searchQuery;
     this.setState({
@@ -114,7 +108,6 @@ export default class Address extends React.Component {
     this.setState({ googleMapsAddress: searchQuery })
     axios.get('/api/addresses/googlemaps?q='+searchQuery)
     .then(function (response) {
-      console.log(response.data)
       self.setState({
         addressOptions: response.data.predictions.map(option=>({key: option.description, value: option.place_id, text: option.description}))
       })

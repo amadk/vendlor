@@ -24,7 +24,6 @@ class Return extends React.Component {
     var self = this;
     axios.get('/api/orderedProducts/return')
     .then(response => {
-      console.log(response)
       self.setState({
         returnItems: response.data,
         orderRequestComplete: true
@@ -98,7 +97,6 @@ class Return extends React.Component {
           }
         }
       })
-      console.log(shipments)
 
       totalShipping = shipments.length * 12
 
@@ -127,7 +125,6 @@ class Return extends React.Component {
       amountToCollect: 0
     })
     .then(function (response) {
-      console.log(response)
       callback(response)
     })
     .catch(function (error) {
@@ -137,7 +134,6 @@ class Return extends React.Component {
 
   updateOrderedProduct (shipmentId, product, callback) {
     var self = this;
-    console.log('updating')
     axios.post('/api/orders/'+product.order_id+'/shipments/'+shipmentId+'/products/'+product.id, {
       comission: 0,
       sellerRevenue: 0,
@@ -148,7 +144,6 @@ class Return extends React.Component {
       status: 'returned'
     })
     .then(function (response) {
-      console.log(response)
       callback();
     })
     .catch(function (error) {
@@ -159,7 +154,6 @@ class Return extends React.Component {
   render() {
     var self = this;
     const { orderRequestComplete, returnItems, description } = this.state
-    console.log(returnItems)
 
     if (!orderRequestComplete) {
       return (

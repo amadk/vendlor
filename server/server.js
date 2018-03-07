@@ -34,6 +34,14 @@ var OrderedProduct = require('../db/models/index.js').OrderedProduct;
 var ProductPhoto = require('../db/models/index.js').ProductPhoto;
 var forEachAsync = require('forEachAsync').forEachAsync;
 
+(function () {
+  var log = console.log;
+  console.log = function () {
+    if (process.env.NODE_ENV !== 'production') {
+      log.apply(this, Array.prototype.slice.call(arguments));
+    }
+  };
+}());
 
 const app = new Express();
 const server = new Server(app);
@@ -68,7 +76,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use('/', (req, res, next) => {
-console.log(req.session.accountId, req.body, req.method, req.path, 'server.js', 48)
   if (req.session.accountId) {
     Account.find({where: {id: req.session.accountId}}).then(account => {
       req.account = account;

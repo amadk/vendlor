@@ -40,7 +40,6 @@ class Payment extends React.Component {
   }
 
   createCard () {
-    console.log('create card')
     var self = this;
     axios.post('http://127.0.0.1:3030/cards', {
       name: self.state.name,
@@ -55,7 +54,6 @@ class Payment extends React.Component {
     })
     .then(function (response) {
       // location.reload()
-      console.log(response);
       self.closeCardModal()
     })
     .catch(function (error) {

@@ -42,7 +42,6 @@ export default class App extends React.Component {
     var self = this;
     axios.get('/api/auth/isloggedin')
     .then(response => {
-      console.log(response)
       self.setState({
         token: response.data.token,
         authChecked: true,

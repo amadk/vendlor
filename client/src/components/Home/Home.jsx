@@ -26,7 +26,6 @@ export default class Home extends React.Component {
 
   getProducts (props) {
     var self = this;
-    console.log(props.location.search)
     var params = queryString.parse(props.location.search)
     var link = '';
 
@@ -38,7 +37,6 @@ export default class Home extends React.Component {
 
     axios.get('/api/products'+link)
     .then(function (response) {
-      console.log(response)
       self.setState({
         products: response.data,
         homeRequestComplete: true

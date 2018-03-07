@@ -23,7 +23,6 @@ export default class Address extends React.Component {
     var self = this;
     axios.get('/api/addresses')
     .then(response => {
-      console.log(response)
       var addresses = response.data.reverse()
       self.setState({
         addresses: addresses,
@@ -46,7 +45,6 @@ export default class Address extends React.Component {
 
 
   editAddress (e, { value }) {
-    console.log(this.state.addresses[value])
     this.props.openAddressForm(this.state.addresses[value])
   }
 
@@ -58,7 +56,6 @@ export default class Address extends React.Component {
     var self = this;
     axios.delete('/api/addresses/'+addressid)
     .then(function (response) {
-      console.log(response)
       self.getAddresses();
     })
     .catch(function (error) {

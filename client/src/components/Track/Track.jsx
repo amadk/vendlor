@@ -25,7 +25,6 @@ export default class Track extends React.Component {
     var self = this;
     axios.get('/api/orders')
     .then(response => {
-      console.log(response)
       self.setState({
         orders: response.data,
         trackRequestComplete: true
@@ -43,7 +42,6 @@ export default class Track extends React.Component {
       returnCart: !product.returnCart
     })
     .then(response => {
-      console.log(response)
       self.getOrders();
     })
     .catch(function (error) {
@@ -121,7 +119,6 @@ export default class Track extends React.Component {
         returnDetails: self.state['description-'+product.id]
       })
       .then(response => {
-        console.log(response)
         self.getOrders(() => {
           if (shipment.orderedProducts.filter(product=>(product.status === 'order_cancelled')).length === shipment.orderedProducts.length) {
             self.cancelShipment();
@@ -140,7 +137,6 @@ export default class Track extends React.Component {
         returnDetails: null
       })
       .then(response => {
-        console.log(response)
         self.getOrders(() => {
           if (shipment.orderedProducts.filter(product=>(product.status === 'Order Cancelled')).length+1 === shipment.orderedProducts.length) {
             self.cancelShipment();
@@ -164,7 +160,6 @@ export default class Track extends React.Component {
       status: 'cancelled',
     })
     .then(response => {
-      console.log(response)
       self.getOrders();
       cancelOrderModal ? self.closeOrderCancelModal() : self.closeReturnCancelModal()
     })

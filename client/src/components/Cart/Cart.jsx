@@ -34,7 +34,6 @@ class Cart extends React.Component {
     var self = this;
     axios.get('/api/cart')
     .then(response => {
-      console.log(response)
       var products = response.data
       self.setState({
         products: products,
@@ -86,7 +85,6 @@ class Cart extends React.Component {
       quantity: value
     })
     .then(response => {
-      console.log(response.data);
       self.getCartProducts();
     })
     .catch(function (error) {
@@ -98,7 +96,6 @@ class Cart extends React.Component {
     var self = this;
     axios.delete('/api/cart/'+value)
     .then(response => {
-      console.log(response.data);
       self.getCartProducts();
     })
     .catch(function (error) {
@@ -146,10 +143,8 @@ class Cart extends React.Component {
             }
           })
         })
-        console.log(allProducts)
         shipments = shipments.concat(subShipments);
       })
-      console.log(shipments, pickupAddressIds)
 
       var self = this;
       axios.post('/api/orders', {
@@ -159,7 +154,6 @@ class Cart extends React.Component {
         grandTotal: grandTotal,
       })
       .then(function (response) {
-        console.log(response);
         var orderId = response.data.id
         // self.createCharge(orderId, () => {
           forEachAsync(shipments, (next1, shipment, index) => {
@@ -193,7 +187,6 @@ class Cart extends React.Component {
       status: '0% complete'
     })
     .then(function (response) {
-      console.log(response);
       callback();
     })
     .catch(function (error) {
@@ -211,7 +204,6 @@ class Cart extends React.Component {
       amountToCollect += product.price
     })
     amountToCollect += getShipmentCost(shipment)
-    console.log(amountToCollect)
 
     var self = this;
     axios.post('/api/orders/'+orderId+'/shipments', {
@@ -224,7 +216,6 @@ class Cart extends React.Component {
       amountToCollect: amountToCollect
     })
     .then(function (response) {
-      console.log(response)
       callback(response)
     })
     .catch(function (error) {
@@ -246,7 +237,6 @@ class Cart extends React.Component {
       status: 'ordered'
     })
     .then(function (response) {
-      console.log(response)
       callback();
     })
     .catch(function (error) {

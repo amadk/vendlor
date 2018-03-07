@@ -18,11 +18,13 @@ class Navbar extends React.Component {
     axios.get('/api/accounts/signout').then(() => {
       window.location.href = '/';
     })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   search () {
     if (this.state.search.length > 0) {
-      console.log('searching')
       this.props.history.push('/?search='+this.state.search.split(' ').join('+'))      
     }
   }

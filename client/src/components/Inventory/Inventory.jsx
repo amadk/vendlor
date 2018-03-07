@@ -16,7 +16,6 @@ class Inventory extends React.Component {
     var self = this;
     axios.get('/api/products/inventory')
     .then(function (response) {
-      console.log(response)
       self.setState({
         products: response.data,
         inventoryRequestComplete: true
@@ -31,7 +30,7 @@ class Inventory extends React.Component {
     var self = this;
     axios.get('/api/products/publish/'+value)
     .then(function (response) {
-      console.log(response)
+
     })
     .catch(function (error) {
       console.log(error);
@@ -43,7 +42,6 @@ class Inventory extends React.Component {
 
     axios.delete('/api/products/'+value)
     .then(function (response) {
-      console.log(response)
       location.reload()
     })
     .catch(function (error) {

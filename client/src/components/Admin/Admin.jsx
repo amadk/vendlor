@@ -36,7 +36,6 @@ export default class Admin extends React.Component {
 
     axios.post('/api/admin/'+items, postData)
     .then(response => {
-      console.log(response)
       self.setState({
         items: response.data,
         itemsRequestComplete: true
@@ -59,7 +58,7 @@ export default class Admin extends React.Component {
     }
     axios.post('/api/admin/'+items+'/'+item.id, updateObj)
     .then(response => {
-      console.log(response)
+
       self.getItems(self.props.match.params.items, {status: self.state.activeItem});
     })
     .catch(function (error) {

@@ -36,7 +36,6 @@ export default class Profile extends React.Component {
 
     axios.get('/api/accounts')
     .then(response => {
-      console.log(response)
       const { fullName, email, mobile, nationality, gender, dateOfBirth  } = response.data;     
       self.setState({
         fullName: fullName,
@@ -73,7 +72,6 @@ export default class Profile extends React.Component {
         dateOfBirth: dateOfBirth.length === 0 ? null : dateOfBirth
       })
       .then(response => {
-        console.log(response);
         self.setState({loading: false})
         self.getAccount();
         self.openPopup(response.data);
