@@ -315,7 +315,7 @@ class Cart extends React.Component {
                             return (
                             <Grid key={index3}>
                               <Grid.Column mobile={16} tablet={3} computer={3}>
-                                <Image src={'https://s3.ap-south-1.amazonaws.com/dibba/'+product.primaryPhoto} size='large' />
+                                <Image src={'https://s3.ap-south-1.amazonaws.com/vendlor/'+product.primaryPhoto} size='large' />
                               </Grid.Column>
                               <Grid.Column mobile={16} tablet={5} computer={5}>
                                 <Header as='h3'>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Segment, TextArea, Table, Step, Button, Sticky, Dimmer, Loader, Checkbox, Menu, Icon, Modal, Input, Form, Dropdown, Card, Image, Grid, Label, Header, Popup, Divider, List, Radio } from 'semantic-ui-react'
+import { Dimmer, Loader, Menu, Header } from 'semantic-ui-react'
+import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment'
+
 import axios from 'axios';
 import { forEachAsync } from 'forEachAsync';
 import moment from 'moment';
@@ -9,6 +11,7 @@ import Seller from './Seller.jsx'
 import Product from './Product.jsx'
 import BankAccount from './BankAccount.jsx'
 import Payout from './Payout.jsx'
+
 
 export default class Admin extends React.Component {
   constructor(props) {

@@ -33,7 +33,7 @@ adminRouter.route('/:items')
         forEachAsync(items, (next, product, index) => {
           product.getProductPhotos({order: [['order', 'DESC']]}).then(photos => {
             product = product.toJSON();
-            product.photos = photos.map(photo=>('https://s3.ap-south-1.amazonaws.com/dibba/'+photo.key));
+            product.photos = photos.map(photo=>('https://s3.ap-south-1.amazonaws.com/vendlor/'+photo.key));
             newItems.push(product)
             next()
           })

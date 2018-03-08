@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { Segment, Header, Icon, Button, Form, Grid, Message } from 'semantic-ui-react'
+import { Segment, Dimmer, Loader, Header, Icon, Button, Form, Message, Grid } from 'semantic-ui-react'
 import axios from 'axios';
 import request from 'superagent';
 
@@ -10,17 +10,15 @@ export default class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      visible: false
+      visible: false,
+      loading: false
     }
-  }
-
-  componentDidMount () {
-
   }
 
   login () {
     var self = this;
     const { email, password } = this.state;
+    this.setState({loading: true});
 
     axios.post('/api/accounts/login', {
       email: email,
@@ -30,7 +28,7 @@ export default class Login extends React.Component {
       if (response.data.authenticated) {
         window.location.href = '/';
       } else {
-        self.setState({ visible: true })
+        self.setState({ visible: true, loading: false })
       }
     })
     .catch(function (error) {
@@ -41,7 +39,7 @@ export default class Login extends React.Component {
   handleChange (e, { name, value }) { this.setState({ [name]: value }) }
 
   render() {
-    const { email, password, visible } = this.state;
+    const { email, password, visible, loading } = this.state;
     return (
       <Grid centered>  
         <Grid.Column mobile={16} tablet={6} computer={6}>
@@ -64,6 +62,9 @@ export default class Login extends React.Component {
             <Segment textAlign='left' basic compact>
               Don't have an account? <Link to='/signup'>register here</Link>
             </Segment>
+            <Dimmer inverted active={loading}>
+              <Loader />
+            </Dimmer>
           </Segment>
         </Grid.Column>
       </Grid>

@@ -54,7 +54,7 @@ class Product extends React.Component {
     axios.get('/api/products/'+productId+'/photos')
     .then(response => {
       self.setState({
-        photos: response.data.map(photo => ('https://s3.ap-south-1.amazonaws.com/dibba/'+photo.key)),
+        photos: response.data.map(photo => ('https://s3.ap-south-1.amazonaws.com/vendlor/'+photo.key)),
         photosLength: response.data.length,
       })
     })

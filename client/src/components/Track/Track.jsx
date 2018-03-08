@@ -261,7 +261,7 @@ export default class Track extends React.Component {
                             <div key={index3}>
                               <Grid>
                                 <Grid.Column mobile={16} tablet={3} computer={3}>
-                                  <Image src={'https://s3.ap-south-1.amazonaws.com/dibba/'+product.primaryPhoto} size='large' />
+                                  <Image src={'https://s3.ap-south-1.amazonaws.com/vendlor/'+product.primaryPhoto} size='large' />
                                 </Grid.Column>
                                 <Grid.Column mobile={16} tablet={8} computer={8}>
                                   <Header as='h3'><Link to={'/products/'+product.product_id}>{product.title}</Link></Header>
@@ -294,7 +294,7 @@ export default class Track extends React.Component {
               <Modal.Content scrolling>
                 <Grid>
                   <Grid.Column mobile={16} tablet={2} computer={2} verticalAlign='middle'>
-                    <Image src={'https://s3.ap-south-1.amazonaws.com/dibba/'+productInCancelModal.primaryPhoto} size='small' />
+                    <Image src={'https://s3.ap-south-1.amazonaws.com/vendlor/'+productInCancelModal.primaryPhoto} size='small' />
                   </Grid.Column>
                   <Grid.Column mobile={16} tablet={8} computer={8}>
                     <Link to={'/products/'+productInCancelModal.product_id}>{productInCancelModal.title}</Link><br/>
@@ -336,7 +336,7 @@ export default class Track extends React.Component {
               <Modal.Content scrolling>
                 <Grid>
                   <Grid.Column mobile={16} tablet={2} computer={2} verticalAlign='middle'>
-                    <Image src={'https://s3.ap-south-1.amazonaws.com/dibba/'+productInCancelModal.primaryPhoto} size='small' />
+                    <Image src={'https://s3.ap-south-1.amazonaws.com/vendlor/'+productInCancelModal.primaryPhoto} size='small' />
                   </Grid.Column>
                   <Grid.Column mobile={16} tablet={8} computer={8}>
                     <Link to={'/products/'+productInCancelModal.id}>{productInCancelModal.title}</Link><br/>

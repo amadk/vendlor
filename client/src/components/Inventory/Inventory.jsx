@@ -90,7 +90,7 @@ class Inventory extends React.Component {
               {products.map((product, index) => (
                 <Grid.Column mobile={16} tablet={8} computer={4} key={index}>
                   <Card fluid>
-                    <Image src={'https://s3.ap-south-1.amazonaws.com/dibba/'+product.primaryPhoto} as={Link} to={'/products/'+product.id} />
+                    <Image src={'https://s3.ap-south-1.amazonaws.com/vendlor/'+product.primaryPhoto} as={Link} to={'/products/'+product.id} />
                     <Card.Content as={Link} to={'/products/'+product.id}>
                       <Card.Header>
                         {product.title}

@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Segment, Dimmer, Header, Table, Button, Menu, Icon, Modal, Input, Form, Dropdown, Card, Image, Grid, Loader } from 'semantic-ui-react'
 import axios from 'axios';
-import request from 'superagent';
-import InfiniteScroll from 'react-infinite-scroller';
+import { Segment, Dimmer, Header, Card, Image, Grid, Loader } from 'semantic-ui-react'
 
 const queryString = require('query-string');
 
@@ -72,7 +70,7 @@ export default class Home extends React.Component {
               {products.map((product, index) => (
                 <Grid.Column mobile={16} tablet={4} computer={4} key={index}>
                   <Card fluid >
-                    <Image src={'https://s3.ap-south-1.amazonaws.com/dibba/'+product.primaryPhoto} as={Link} to={'/products/'+product.id} />
+                    <Image src={'https://s3.ap-south-1.amazonaws.com/vendlor/'+product.primaryPhoto} as={Link} to={'/products/'+product.id} />
                     <Card.Content as={Link} to={'/products/'+product.id}>
                       <Card.Header>
                         {product.title}

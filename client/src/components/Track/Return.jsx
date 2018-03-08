@@ -179,7 +179,7 @@ class Return extends React.Component {
                   <div key={index}>
                     <Grid>
                       <Grid.Column mobile={16} tablet={2} computer={2} verticalAlign='middle'>
-                        <Image src={'https://s3.ap-south-1.amazonaws.com/dibba/'+product.primaryPhoto} size='small' />
+                        <Image src={'https://s3.ap-south-1.amazonaws.com/vendlor/'+product.primaryPhoto} size='small' />
                       </Grid.Column>
                       <Grid.Column mobile={16} tablet={8} computer={8}>
                         <Link to={'/products/'+product.product_id}>{product.title}</Link><br/>
