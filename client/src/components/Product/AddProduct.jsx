@@ -183,17 +183,19 @@ class AddProduct extends React.Component {
 
   saveProductInformation (callback) {
     var self = this;
-    const { id, title, weight, quantity, price, category, size, condition, description, selectedAddressId } = this.state
+    const { id, title, weight, quantity, price, category, condition, description, selectedAddressId, age, warranty, usage } = this.state
     var productId = this.props.match.params.productId;
 
     axios.post('/api/products/'+(productId ? productId : ''), {
       title: title,
       quantity: quantity,
       price: price,
-      category: categoryOptions[category],
-      // size: sizeOptions[size],
+      category: category,
+      age: age,
+      warranty: warranty,
+      usage: usage,
       weight: weight,
-      condition: conditionOptions[condition],
+      condition: condition,
       description: description,
       pickupAddressId: selectedAddressId,
       live: true
@@ -337,7 +339,7 @@ class AddProduct extends React.Component {
             <Loader inverted>Loading</Loader>
           </Dimmer>
           <Grid.Column mobile={16} tablet={5} computer={5}>
-            <Card fluid style={{position: 'sticky', top: '85px'}}>
+            <Card fluid style={mobilecheck ? {margin: 0} : {position: 'sticky', top: '85px'}}>
               <AutoPlaySwipeableViews index={this.state.slideIndex} onChange={this.handleSlideChange.bind(this)}>
                 {(photos.concat(newPhotos)).map((photo, index) => (
                   <div key={index}><Image src={photo.preview ? photo.preview : photo} fluid centered verticalAlign='middle' /></div>
@@ -439,7 +441,7 @@ class AddProduct extends React.Component {
                     />*/}
                     <Form.Field error={weightError}>
                       <label>{'Approximate weight*' + (weightError ? ' - '+weightErrorMessage : ' (required for shipping)')}</label>
-                      <Input labelPosition='right' placeholder='Weight' value={weight} name='weight' onChange={this.handleChange.bind(this)} />
+                      <Input label='grams' labelPosition='right' placeholder='Weight' value={weight} name='weight' onChange={this.handleChange.bind(this)} />
                     </Form.Field>
                   </Grid.Column>
                   <Grid.Column mobile={16} tablet={8} computer={8}>

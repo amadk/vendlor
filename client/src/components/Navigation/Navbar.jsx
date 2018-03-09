@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { Sidebar, Segment, Button, Divider, Menu, List, Icon, Popup, Input, Form, Dropdown, Message, Card, Image, Grid, Loader, Header } from 'semantic-ui-react'
+import { TransitionablePortal, Segment, Button, Divider, Menu, List, Icon, Popup, Input, Form, Dropdown, Grid, Loader, Header } from 'semantic-ui-react'
 import axios from 'axios';
 
 
@@ -25,7 +25,8 @@ class Navbar extends React.Component {
 
   search () {
     if (this.state.search.length > 0) {
-      this.props.history.push('/?search='+this.state.search.split(' ').join('+'))      
+      this.props.history.push('/?search='+this.state.search.split(' ').join('+'))
+      this.closePopup();    
     }
   }
 
@@ -65,7 +66,7 @@ class Navbar extends React.Component {
                   flowing
                   hoverable
                   position='bottom right'
-                  style={{margin: '10px', left: 0, top: 0, right: 0}}
+                  style={{margin: '10px', left: 0, top: 0, right: 0, position: 'fixed'}}
                   on='click'
                   basic
                   open={visible}
@@ -81,7 +82,7 @@ class Navbar extends React.Component {
 
                       <List selection verticalAlign='middle'>
                         {items.map((item, index) => (
-                          <List.Item as={Link} to={item.path} key={index}>
+                          <List.Item onClick={this.closePopup.bind(this)} as={Link} to={item.path} key={index}>
                             <Icon name={item.icon} size='large' />
                             <List.Content>
                               <List.Header>{item.title}</List.Header>
@@ -104,12 +105,26 @@ class Navbar extends React.Component {
                       <Form onSubmit={this.search.bind(this)}>
                         <Form.Input icon='search' placeholder='Search...' name='search' value={search} onChange={this.handleChange.bind(this)} />
                       </Form>
-                      <Divider horizontal/>
-                      <Button.Group widths={6}>
-                        <Button primary as={Link} to='/login'>Login</Button>
-                        <Button.Or />
-                        <Button as={Link} to='/signup'>Sign up</Button>
-                      </Button.Group>
+                      <List selection verticalAlign='middle'>
+                        <List.Item onClick={this.closePopup.bind(this)} as={Link} to='/'>
+                          <Icon name='home' size='large' />
+                          <List.Content>
+                            <List.Header>Home</List.Header>
+                          </List.Content>
+                        </List.Item>
+                        <List.Item onClick={this.closePopup.bind(this)} as={Link} to='/login'>
+                          <Icon name='sign in' size='large' />
+                          <List.Content>
+                            <List.Header>Login</List.Header>
+                          </List.Content>
+                        </List.Item>
+                        <List.Item onClick={this.closePopup.bind(this)} as={Link} to='/signup'>
+                          <Icon name='signup' size='large' />
+                          <List.Content>
+                            <List.Header>Sign up</List.Header>
+                          </List.Content>
+                        </List.Item>
+                      </List>
                     </div>
                   )}
                 </Popup>
