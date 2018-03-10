@@ -77,7 +77,7 @@ export default class Home extends React.Component {
                       </Card.Header>
                       <Card.Meta>
                         <span className='date'>
-                          Price: {product.price}
+                          Price: {product.price} AED
                         </span>
                       </Card.Meta>
                     </Card.Content>

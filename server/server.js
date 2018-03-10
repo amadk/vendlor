@@ -3,10 +3,6 @@ require('babel-register')({ ignore: /\/(build|node_modules)\//, presets: ['react
 import path from 'path';
 import { Server } from 'http';
 import Express from 'express';
-const https = require('https');
-const http = require('http');
-const fs = require('fs');
-
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter as Router } from 'react-router-dom';
@@ -38,26 +34,14 @@ var OrderedProduct = require('../db/models/index.js').OrderedProduct;
 var ProductPhoto = require('../db/models/index.js').ProductPhoto;
 var forEachAsync = require('forEachAsync').forEachAsync;
 
-(function () {
-  var log = console.log;
-  console.log = function () {
-    if (process.env.NODE_ENV !== 'production') {
-      log.apply(this, Array.prototype.slice.call(arguments));
-    }
-  };
-}());
-
 const app = new Express();
 const server = new Server(app);
 
 if (process.env.NODE_ENV === 'production') {
-  app.get('*', (req, res, next) => {
-    if (!req.secure) {
-      res.redirect('https://vendlor.com'+req.url)
-    } else {
-     next() 
-    }
-  })
+  (function () {
+    var log = console.log;
+    console.log = function () {};
+  }());
 }
 
 var sessionMiddleware = session({
@@ -179,27 +163,13 @@ app.get('*', (req, res) => {
   return res.status(status).render('index', { markup });
 });
 
-var options = {};
-if (process.env.NODE_ENV === 'production') {
-  options.cert = fs.readFileSync('/etc/letsencrypt/live/vendlor.com/fullchain.pem')
-  options.key = fs.readFileSync('/etc/letsencrypt/live/vendlor.com/privkey.pem');
-}
-
 
 // start the server
 const port = process.env.PORT;
 
-if (process.env.NODE_ENV === 'production') {
-
-  http.createServer(app).listen(port);
-  app.listen(8080);
-  https.createServer(options, app).listen(443);
-
-} else {
-  server.listen(port, (err) => {
-    if (err) {
-      return console.error(err);
-    }
-    console.log('server running on port ' + port)
-  })
-}
+server.listen(port, (err) => {
+  if (err) {
+    return console.error(err);
+  }
+  console.log('server running on port ' + port)
+})
