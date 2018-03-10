@@ -2,14 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Segment, Sticky, Rail, Loader, Dimmer, Table, Button, Menu, Icon, Modal, Input, Form, Dropdown, Card, Image, Grid, Label, Header, Popup, Divider, TextArea } from 'semantic-ui-react'
 import axios from 'axios';
-import superagent from 'superagent';
-import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
-import Dropzone from 'react-dropzone';
-import Address from '../Cart/Address.jsx';
 import moment from 'moment-timezone';
 
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 export default class Profile extends React.Component {
   constructor(props) {

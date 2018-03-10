@@ -1,11 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Dimmer, Loader, Menu, Header } from 'semantic-ui-react'
-import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment'
-
+import { Segment, Dimmer, Loader, Menu, Header } from 'semantic-ui-react'
 import axios from 'axios';
-import { forEachAsync } from 'forEachAsync';
-import moment from 'moment';
 
 import Seller from './Seller.jsx'
 import Product from './Product.jsx'

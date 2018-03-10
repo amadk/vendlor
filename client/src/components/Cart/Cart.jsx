@@ -2,16 +2,11 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Segment, Table, Button, Message, Sticky, Dimmer, Loader, Checkbox, Menu, Icon, Modal, Input, Form, Dropdown, Card, Image, Grid, Label, Header, Popup, Divider, List, Radio } from 'semantic-ui-react'
 import axios from 'axios';
-import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
-import request from 'superagent';
 import { forEachAsync } from 'forEachAsync';
 import Address from './Address.jsx';
 import AddressForm from './AddressForm.jsx';
 import Payment from './Payment.jsx';
 
-
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 class Cart extends React.Component {
   constructor(props) {

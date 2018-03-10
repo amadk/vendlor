@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Segment, Dimmer, Loader, Header, Icon, Button, Form, Message, Grid } from 'semantic-ui-react'
 import axios from 'axios';
-import request from 'superagent';
 
 export default class Login extends React.Component {
   constructor(props) {

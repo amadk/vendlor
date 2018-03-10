@@ -12,14 +12,14 @@ import axios from 'axios';
 
 import Navbar from './Navigation/Navbar.jsx';
 import Home from './Home/Home.jsx';
+import Product from './Product/Product.jsx';
+import Login from './Auth/Login.jsx';
+import Signup from './Auth/Signup.jsx';
 
 import Inventory from './Inventory/Inventory.jsx';
 import AddProduct from './Product/AddProduct.jsx';
-import Product from './Product/Product.jsx';
 import Cart from './Cart/Cart.jsx';
 
-import Login from './Auth/Login.jsx';
-import Signup from './Auth/Signup.jsx';
 import Track from './Track/Track.jsx'
 import Return from './Track/Return.jsx'
 import Profile from './Profile/Profile.jsx'
@@ -57,6 +57,7 @@ export default class App extends React.Component {
 
   render() {
     const { authChecked, isLoggedIn, userType } = this.state;
+      // return (<div></div>)
 
     if (authChecked) {
       if (isLoggedIn) {
@@ -65,8 +66,6 @@ export default class App extends React.Component {
             <Navbar isLoggedIn={isLoggedIn}>
               <Switch>
                 <Route exact path="/" component={Home} />
-                {/*<Route exact path="/categories/:category" component={Category} />
-                <Route exact path="/search" component={Search} />*/}
                 <Route exact path="/inventory" component={Inventory} />
                 <Route exact path="/products/:productId" render={props => (<Product {...props} isLoggedIn={isLoggedIn} />)} />
                 <Route exact path="/editproduct/:productId" component={AddProduct} />
@@ -78,16 +77,16 @@ export default class App extends React.Component {
               </Switch>
             </Navbar>
           )
-        } else if (userType === 'admin') {
+        } 
+        else if (userType === 'admin') {
           return (
             <AdminNav>
               <Switch>
                 <Route exact path="/shipments/:status" component={Shipment} />
                 <Route exact path="/:items" component={Admin} />
-                {/*<Route exact path="/sellers" component={Seller} />
                 <Route exact path="/bank_accounts" component={BankAccount} />
                 <Route exact path="/payouts" component={Payout} />
-                <Route exact path="/shipments" component={Shipment} />*/}
+                <Route exact path="/shipments" component={Shipment} />}
               </Switch>
             </AdminNav>
           )

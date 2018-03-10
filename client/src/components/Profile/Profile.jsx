@@ -2,10 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Segment, Sticky, Rail, Loader, Dimmer, Table, Button, Menu, Icon, Modal, Input, Form, Dropdown, Card, Image, Grid, Label, Header, Popup, Divider, TextArea } from 'semantic-ui-react'
 import axios from 'axios';
-import superagent from 'superagent';
-import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
-import Dropzone from 'react-dropzone';
 
 import Account from './Account.jsx';
 import Seller from './Seller.jsx';
@@ -14,9 +10,6 @@ import AddressForm from '../Cart/AddressForm.jsx';
 import Bank from './Bank.jsx';
 import Payout from './Payout.jsx';
 
-
-
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 export default class Profile extends React.Component {
   constructor(props) {
