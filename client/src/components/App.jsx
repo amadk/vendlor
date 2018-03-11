@@ -84,9 +84,9 @@ export default class App extends React.Component {
               <Switch>
                 <Route exact path="/shipments/:status" component={Shipment} />
                 <Route exact path="/:items" component={Admin} />
-                <Route exact path="/bank_accounts" component={BankAccount} />
+                {/*<Route exact path="/bank_accounts" component={BankAccount} />
                 <Route exact path="/payouts" component={Payout} />
-                <Route exact path="/shipments" component={Shipment} />}
+                <Route exact path="/shipments" component={Shipment} />*/}
               </Switch>
             </AdminNav>
           )
