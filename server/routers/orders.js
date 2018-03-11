@@ -72,7 +72,7 @@ orderRouter.route('/:orderId')
 // Update order
 orderRouter.route('/:orderId')
   .put(function(req, res) {
-    account.getOrder({where: {id: req.params.orderId}}).then(order => {
+    req.account.getOrder({where: {id: req.params.orderId}}).then(order => {
       order.update(req.body).then(newOrder => {
         res.send(newOrder)        
       })
@@ -82,8 +82,15 @@ orderRouter.route('/:orderId')
 // Delete order
 orderRouter.route('/:orderId')
   .delete(function(req, res) {
-    Order.delete({where: {id: req.params.orderId}}).then(() => {
-      res.send('order deleted!');
+    req.account.getOrders({where: {id: req.params.orderId}}).then(orders => {
+      var order = orders[0];
+      if (order) {
+        Order.destroy({where: {id: req.params.orderId}}).then(() => {
+          res.send('Order '+order.id+' has been deleted!');
+        })
+      } else {
+        res.send('User is not authorized to delete this product')
+      }
     })
   });
 

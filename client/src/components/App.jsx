@@ -21,6 +21,7 @@ import AddProduct from './Product/AddProduct.jsx';
 import Cart from './Cart/Cart.jsx';
 
 import Track from './Track/Track.jsx'
+import Sales from './Track/Sales.jsx'
 import Return from './Track/Return.jsx'
 import Profile from './Profile/Profile.jsx'
 
@@ -72,6 +73,7 @@ export default class App extends React.Component {
                 <Route exact path="/addproduct" component={AddProduct} />
                 <Route exact path="/cart" component={Cart} />
                 <Route exact path="/track" component={Track} />
+                <Route exact path="/sales" component={Sales} />
                 <Route exact path="/return" component={Return} />
                 <Route exact path="/profile" component={Profile} />
               </Switch>

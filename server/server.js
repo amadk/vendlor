@@ -28,6 +28,7 @@ var chargeRouter = require('./routers/charges.js')
 var refundRouter = require('./routers/refunds.js')
 // var balanceTransactionRouter = require('./routers/balanceTransactions.js')
 var payoutRouter = require('./routers/payouts.js')
+var salesRouter = require('./routers/sales.js')
 
 var adminRouter = require('./routers/admin.js')
 var OrderedProduct = require('../db/models/index.js').OrderedProduct;
@@ -123,6 +124,7 @@ app.use('/api/cards', cardRouter);
 app.use('/api/bank_accounts', bankAccountRouter);
 
 app.use('/api/payouts', payoutRouter);
+app.use('/api/sales', salesRouter);
 
 app.use('/api/orders/:orderId/shipments/:shipmentId/products', orderedProductRouter);
 app.use('/api/orders/:orderId/shipments', shipmentRouter);

@@ -44,7 +44,6 @@ accountRouter.route('/login')
     var email = req.body.email;
     var password = req.body.password;
 
-    console.log(req.body, 'accounts.js', 15)
     if (!(email && password)) {
       return res.send({authenticated: false});
     }

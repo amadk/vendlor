@@ -165,13 +165,33 @@ class Return extends React.Component {
     } else {
       if (returnItems.length === 0) {
         return (
-          <Segment textAlign='center' padded='very'>
-            <Header as='h1'>Your don't have any return items</Header>
-          </Segment>
+          <div>
+            <Menu secondary stackable>
+              <Menu.Item><Header as='h2'>Track</Header></Menu.Item>
+              <Menu.Menu position='right'>
+                <Menu.Item active={this.props.location.pathname === '/track'} as={Link} to='/track'>Purchases</Menu.Item>
+                <Menu.Item active={this.props.location.pathname === '/sales'} as={Link} to='/sales'>Sales</Menu.Item>
+                <Menu.Item active={this.props.location.pathname === '/return'} as={Link} to='/return'>Return Cart</Menu.Item>
+                <Menu.Item/>
+              </Menu.Menu>
+            </Menu>
+            <Segment textAlign='center' padded='very'>
+              <Header as='h1'>Your don't have any return items</Header>
+            </Segment>
+          </div>
         )
       } else {
         return (
           <Grid centered>
+            <Menu secondary stackable>
+              <Menu.Item><Header as='h2'>Track</Header></Menu.Item>
+              <Menu.Menu position='right'>
+                <Menu.Item active={this.props.location.pathname === '/track'} as={Link} to='/track'>Purchases</Menu.Item>
+                <Menu.Item active={this.props.location.pathname === '/sales'} as={Link} to='/sales'>Sales</Menu.Item>
+                <Menu.Item active={this.props.location.pathname === '/return'} as={Link} to='/return'>Return Cart</Menu.Item>
+                <Menu.Item/>
+              </Menu.Menu>
+            </Menu>
             <Grid.Column mobile={16} tablet={8} computer={8}>
               <Segment>
                 {returnItems.map((product, index) => (

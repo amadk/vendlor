@@ -201,17 +201,31 @@ export default class Track extends React.Component {
     } else {
       if (orders.length === 0) {
         return (
-          <Segment textAlign='center' padded='very'>
-            <Header as='h1'>Your don't have any past orders</Header>
-          </Segment>
+          <div>
+            <Menu secondary stackable>
+              <Menu.Item><Header as='h2'>Track</Header></Menu.Item>
+              <Menu.Menu position='right'>
+                <Menu.Item active={this.props.location.pathname === '/track'} as={Link} to='/track'>Purchases</Menu.Item>
+                <Menu.Item active={this.props.location.pathname === '/sales'} as={Link} to='/sales'>Sales</Menu.Item>
+                <Menu.Item active={this.props.location.pathname === '/return'} as={Link} to='/return'>Return Cart</Menu.Item>
+                <Menu.Item/>
+              </Menu.Menu>
+            </Menu>
+            <Segment textAlign='center' padded='very'>
+              <Header as='h1'>Your don't have any past orders</Header>
+            </Segment>
+          </div>
         )
       } else {
         return (
           <div>
             <Menu secondary stackable>
-              <Menu.Item><Header as='h2'>Track Your Orders</Header></Menu.Item>
+              <Menu.Item><Header as='h2'>Track</Header></Menu.Item>
               <Menu.Menu position='right'>
-                <Menu.Item><Button primary as={Link} to='/return'>Return Cart</Button></Menu.Item>
+                <Menu.Item active={this.props.location.pathname === '/track'} as={Link} to='/track'>Purchases</Menu.Item>
+                <Menu.Item active={this.props.location.pathname === '/sales'} as={Link} to='/sales'>Sales</Menu.Item>
+                <Menu.Item active={this.props.location.pathname === '/return'} as={Link} to='/return'>Return Cart</Menu.Item>
+                <Menu.Item/>
               </Menu.Menu>
             </Menu>
             <Grid>
