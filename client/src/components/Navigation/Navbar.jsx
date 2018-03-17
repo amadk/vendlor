@@ -152,7 +152,7 @@ class Navbar extends React.Component {
                       ))}
                     </List>
                   </Grid.Column>
-                  <Grid.Column >
+                  <Grid.Column>
                     <List relaxed selection>
                       {categories.slice(12,23).map((category, index) => (
                         <List.Item style={{color: 'black'}} as={Link} to={'/?category='+category.split(' ').join('+')} key={index}>
@@ -202,15 +202,34 @@ class Navbar extends React.Component {
             </Menu.Menu>
           )}
         </Menu>
-        <div style={{padding: '100px 20px'}}>
+        <div style={{padding: '100px 20px', minHeight: '100%'}}>
           {this.props.children}          
         </div>
+        <Segment style={{borderRadius: 0, minHeight: 100, backgroundColor: '#efefef'}}>
+          <Header as='h5'>© 2018 Vendlor.com</Header>
+          <List divided horizontal>
+            {information.map((item, index) => (
+              <List.Item as={Link} to={item.link} key={index}>{item.text}</List.Item>
+            ))}
+          </List>
+        </Segment>
       </div>
     )
   }
 }
 
 export default withRouter(Navbar)
+
+var information = [
+  { link: '/information/about-us', text: 'About Us' },
+  { link: '/information/faqs', text: 'FAQs' },
+  { link: '/information/how-it-works', text: 'How It Works' },
+  { link: '/information/privacy-policy', text: 'Privacy Policy' },
+  { link: '/information/return-policy', text: 'Return Policy' },
+  { link: '/information/seller-terms-and-conditions', text: 'Seller Terms and Conditions' },
+  { link: '/information/selling-policies', text: 'Selling Policies' },
+  { link: '/information/terms-and-conditions', text: 'Terms and Conditions' }
+]
 
 var items = [
   { path: '/', icon: 'home', title: 'Home' },

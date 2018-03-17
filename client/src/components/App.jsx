@@ -25,6 +25,8 @@ import Sales from './Track/Sales.jsx'
 import Return from './Track/Return.jsx'
 import Profile from './Profile/Profile.jsx'
 
+import Information from './Information/Information.jsx'
+
 import AdminNav from './Admin/Navbar.jsx'
 import Admin from './Admin/Admin.jsx'
 import Shipment from './Admin/Shipment.jsx'
@@ -76,6 +78,7 @@ export default class App extends React.Component {
                 <Route exact path="/sales" component={Sales} />
                 <Route exact path="/return" component={Return} />
                 <Route exact path="/profile" component={Profile} />
+                <Route exact path="/information/:information" component={Information} />
               </Switch>
             </Navbar>
           )
@@ -101,6 +104,7 @@ export default class App extends React.Component {
               <Route exact path="/products/:productId" render={props => (<Product {...props} isLoggedIn={isLoggedIn} />)} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
+              <Route exact path="/information/:information" component={Information} />
             </Switch>
           </Navbar>
         )

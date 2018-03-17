@@ -4,6 +4,10 @@ var Order = require('../../db/models/index.js').Order;
 var Shipment = require('../../db/models/index.js').Shipment;
 var OrderedProduct = require('../../db/models/index.js').OrderedProduct;
 var ProductPhoto = require('../../db/models/index.js').ProductPhoto;
+var moment = require('moment-timezone');
+var updateProduct = require('../lib/workers.js').updateProduct;
+var updateShipment = require('../lib/workers.js').updateShipment;
+
 
 var orderRouter = express.Router();
 
@@ -31,22 +35,25 @@ orderRouter.route('/')
           order.shipments = [];
 
           forEachAsync(shipments, (next2, shipment, index2) => {
+            var originalShipment = shipment.toJSON();
             shipment.getOrderedProducts().then(products => {
-              shipment = shipment.toJSON();
-              shipment.orderedProducts = [];
-
-              forEachAsync(products, (next3, product, index3) => {
-                ProductPhoto.find({where: {order: 0, product_id: product.product_id}}).then(photo => {
-                  product = product.toJSON();
-                  product.primaryPhoto = photo.key;
-                  shipment.orderedProducts.push(product);
-                  next3();
+              updateShipment(shipment, () => {
+                shipment = shipment.toJSON();
+                shipment.orderedProducts = [];
+                forEachAsync(products, (next3, product, index3) => {
+                  updateProduct(originalShipment, product, () => {
+                    ProductPhoto.find({where: {order: 0, product_id: product.product_id}}).then(photo => {
+                      product = product.toJSON();
+                      product.primaryPhoto = photo.key;
+                      shipment.orderedProducts.push(product);
+                      next3();
+                    })
+                  })
+                }).then(() => {
+                  order.shipments.push(shipment);
+                  next2();
                 })
-              }).then(() => {
-                order.shipments.push(shipment);
-                next2();
               })
-
             })
           }).then(() => {
             newOrders.push(order)

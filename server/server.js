@@ -34,6 +34,9 @@ var adminRouter = require('./routers/admin.js')
 var OrderedProduct = require('../db/models/index.js').OrderedProduct;
 var ProductPhoto = require('../db/models/index.js').ProductPhoto;
 var forEachAsync = require('forEachAsync').forEachAsync;
+var completeShipment = require('./lib/workers.js').completeShipment;
+
+completeShipment();
 
 const app = new Express();
 const server = new Server(app);

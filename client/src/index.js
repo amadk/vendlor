@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { hydrate } from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './components/App.jsx';
 
@@ -10,5 +10,5 @@ const AppClient = () => (
 );
 
 window.onload = () => {
-  render(<AppClient />, document.getElementById('app'));
+  hydrate(<AppClient />, document.getElementById('app'));
 };

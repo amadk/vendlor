@@ -33,7 +33,7 @@ module.exports = function(sequelize, Sequelize) {
     },
     status: {
       type: Sequelize.ENUM,
-      values: ['order_received', 'picking_up', 'picked_up', 'delivering', 'delivered', 'cancelled']
+      values: ['order_received', 'picking_up', 'picked_up', 'delivering', 'delivered', 'cancelled', 'complete']
     },
     pickupDate: {
       type: Sequelize.DATE

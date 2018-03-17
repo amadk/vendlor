@@ -7,7 +7,6 @@ var Payout = require('../../db/models/index.js').Payout;
 var Shipment = require('../../db/models/index.js').Shipment;
 var OrderedProduct = require('../../db/models/index.js').OrderedProduct;
 var forEachAsync = require('forEachAsync').forEachAsync;
-var CronJob = require('cron').CronJob;
 
 
 
@@ -62,46 +61,9 @@ adminRouter.route('/:items/:itemId')
       Model[items].find({where: {id: itemId}}).then(item => {
         var deliveredDate = item.deliveredDate;
         item.update(req.body).then(updatedItem => {
-          console.log('preparing to create cron job')
-          console.log(items === 'shipments', !!req.body.deliveredDate, !deliveredDate, deliveredDate)
           if (items === 'shipments' && req.body.deliveredDate && !deliveredDate) {
             if (updatedItem.type === 'order') {
-              // create cron job
-              console.log('creating cron job')
-              var job = new CronJob(new Date(Date.parse(req.body.deliveredDate)+86400000), ()=>(job.stop()), function () {
-
-                console.log('cron job stopped')
-                updatedItem.getOrderedProducts().then(products => {
-                  forEachAsync(products, (next, product, index) => {
-                    Account.find({where: {id: product.seller_id}}).then(seller => {
-                    console.log('cron job:')
-                    console.log('account email:', req.account.email)
-                    console.log('seller email:', seller.email)
-                    console.log('product status:', product.status)
-
-
-                      if (seller && (product.status === 'ordered' || product.status === 'return_cancelled')) {
-                        seller.update({
-                          availableBalance: seller.availableBalance + (product.price*0.9),
-                          pendingBalance: seller.pendingBalance - (product.price*0.9)
-                        })
-                        .then(() => {
-                          product.update({returnCart: false, status: 'return_closed'}).then(() => {
-                            next()
-                          })
-                        })
-                      } else {
-                        next()
-                      }
-                    })
-                  }).then(() => {
-                    console.log('cron job completed for shipment: ', updatedItem.id)
-                  })
-                })
-              }, true, 'Asia/Dubai');
-
               res.send(updatedItem)
-              
             } else if (updatedItem.type === 'return') {
               updatedItem.getOrderedProducts().then(products => {
                 forEachAsync(products, (next, product, index) => {
@@ -112,7 +74,9 @@ adminRouter.route('/:items/:itemId')
                     }).then(next)
                   })
                 }).then(() => {
-                  res.send(updatedItem)
+                  updatedItem.update({status: 'complete'}).then(() => {
+                    res.send(updatedItem)                    
+                  })
                 })
               })
             }

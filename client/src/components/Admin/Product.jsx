@@ -9,7 +9,7 @@ export default props => {
     <Segment attached='top'>
       <Grid>
         {product.photos.map((photo, index2) => (
-          <Grid.Column mobile={8} tablet={2} computer={2} key={index2}>
+          <Grid.Column mobile={8} tablet={3} computer={3} key={index2}>
             <Image src={photo} />
           </Grid.Column>
         ))}

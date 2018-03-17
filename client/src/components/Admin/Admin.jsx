@@ -23,7 +23,7 @@ export default class Admin extends React.Component {
     var self = this;
     this.getItems(self.props.match.params.items);
     this.props.history.listen((location, action) => {
-      self.setState({itemsRequestComplete: false})
+      self.setState({itemsRequestComplete: true})
       self.getItems(location.pathname.substr(1))
     });
   }

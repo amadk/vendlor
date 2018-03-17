@@ -286,7 +286,7 @@ class Product extends React.Component {
                   </Table> 
                   <Divider />
                   <Header as='h4'>Description</Header>
-                  <div>{description}</div>
+                  <div style={{whiteSpace: 'pre'}}>{description}</div>
 
               </Grid.Column>
               {/*<Grid.Column mobile={16} tablet={4} computer={4}>
