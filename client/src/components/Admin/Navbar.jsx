@@ -86,6 +86,12 @@ export default class Navbar extends React.Component {
         obj[field+'Error'] = true;
         obj[field+'ErrorMessage'] = 'Maxiumum weight allowed is 30,000 grams'
         this.setState(obj)
+      } else if (field === 'productLink' && self.state[field].split('.')[1] !== 'souq') {
+        checkPass = false;
+        var obj = {};
+        obj[field+'Error'] = true;
+        obj[field+'ErrorMessage'] = 'Invalid link'
+        this.setState(obj)
       } else {
         var obj = {};
         obj[field+'Error'] = false;
