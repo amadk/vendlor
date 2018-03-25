@@ -70,9 +70,11 @@ export default class Home extends React.Component {
               {products.map((product, index) => (
                 <Grid.Column mobile={16} tablet={4} computer={4} key={index}>
                   <Card fluid >
-                    <Image src={'https://s3.ap-south-1.amazonaws.com/vendlor/'+product.primaryPhoto} as={Link} to={'/products/'+product.id} />
+                    <Link to={'/products/'+product.id} style={{height: 250, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                      <Image style={{maxHeight: 250, margin: 'auto', display: 'block'}} src={'https://s3.ap-south-1.amazonaws.com/vendlor/'+product.primaryPhoto}  />
+                    </Link>
                     <Card.Content as={Link} to={'/products/'+product.id}>
-                      <Card.Header>
+                      <Card.Header style={{textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', width: '100%'}}>
                         {product.title}
                       </Card.Header>
                       <Card.Meta>

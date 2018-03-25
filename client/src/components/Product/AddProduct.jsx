@@ -338,27 +338,20 @@ class AddProduct extends React.Component {
           <Dimmer active={loading} inverted>
             <Loader inverted>Loading</Loader>
           </Dimmer>
+
           <Grid.Column mobile={16} tablet={5} computer={5}>
-            <Card fluid style={mobilecheck ? {margin: 0} : {position: 'sticky', top: '85px'}}>
-              <AutoPlaySwipeableViews index={this.state.slideIndex} onChange={this.handleSlideChange.bind(this)}>
-                {(photos.concat(newPhotos)).map((photo, index) => (
-                  <div key={index}><Image src={photo.preview ? photo.preview : photo} fluid centered verticalAlign='middle' /></div>
-                ))}
-              </AutoPlaySwipeableViews>
-              {/*<Card.Content extra>
-                <Grid textAlign='center' columns='equal'>
-                  <Grid.Column>
-                    <Icon style={{cursor: 'pointer'}} name='chevron left' onClick={this.previousPhoto.bind(this)} />
-                  </Grid.Column>
-                  <Grid.Column width={10}>
-                    {slideIndex+(photosLength>0?1:0)+'/'+photosLength}
-                  </Grid.Column>
-                  <Grid.Column>
-                    <Icon style={{cursor: 'pointer'}} name='chevron right' onClick={this.nextPhoto.bind(this)} />
-                  </Grid.Column>
-                </Grid>
-              </Card.Content>*/}
-              <Card.Content extra>
+            <Segment>
+            <Grid>
+              <Grid.Column mobile={16} tablet={16} computer={16}>
+                <AutoPlaySwipeableViews index={this.state.slideIndex} onChange={this.handleSlideChange.bind(this)}>
+                  {(photos.concat(newPhotos)).map((photo, index) => (
+                    <div style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}} key={index}>
+                      <Image style={{maxHeight: 350, margin: 'auto', display: 'block'}} src={photo.preview ? photo.preview : photo} />
+                    </div>
+                  ))}
+                </AutoPlaySwipeableViews>
+              </Grid.Column>
+              <Grid.Column mobile={16} tablet={16} computer={16}>
                 <Dropzone
                   ref={(node) => { dropzoneRef = node; }}
                   accept="image/jpeg, image/png" 
@@ -370,15 +363,13 @@ class AddProduct extends React.Component {
                   <Button basic color='green' onClick={() => { dropzoneRef.open() }}>Add Photo</Button>
                   <Button basic color='red' value={slideIndex} onClick={this.removePhoto.bind(this)}>Remove</Button>
                 </div>
-              </Card.Content>
-              <Card.Content extra>
-                <Image.Group size='mini'>
+              </Grid.Column>
+              <Grid.Column mobile={16} tablet={16} computer={16}>
                   {(photos.concat(newPhotos)).map((photo, index) => (
-                    <Image src={photo.preview ? photo.preview : photo} key={index} onClick={()=>{self.handleSlideChange(index)}} style={{cursor: 'pointer'}}/>
+                    <Image style={{ maxHeight: 50, maxWidth: 50, margin: 5, cursor: 'pointer', display: 'inline'}} src={photo.preview ? photo.preview : photo} key={index} onClick={()=>{self.handleSlideChange(index)}} />
                   ))}
-                </Image.Group>
-              </Card.Content>
-              <Card.Content extra>
+              </Grid.Column>
+              <Grid.Column mobile={16} tablet={16} computer={16}>
                 <Popup
                   trigger={<Button fluid primary onClick={this.save.bind(this)}>Save</Button>}
                   content={this.state.popupContent}
@@ -387,15 +378,16 @@ class AddProduct extends React.Component {
                   open={this.state.isPopupOpen}
                   onClose={this.handleClosePopup.bind(this)}
                 />
-              </Card.Content>
-            </Card>
-            <Message
-              visible={photoError}
-              hidden={!photoError}
-              attached='bottom'
-              error
-              content={photoErrorMessage}
-            />
+                <Message
+                  visible={photoError}
+                  hidden={!photoError}
+                  attached='bottom'
+                  error
+                  content={photoErrorMessage}
+                />
+              </Grid.Column>
+            </Grid>
+            </Segment>
           </Grid.Column>
 
           <Grid.Column mobile={16} tablet={11} computer={11}>
@@ -540,7 +532,6 @@ var categoryOptions = [
   'Musical Instruments',
   'Pets',
   'Sports Equipment',
-  'Stuff Wanted',
   'Tickets and Vouchers',
   'Toys',
 ]

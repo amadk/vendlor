@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var CompressionPlugin = require('compression-webpack-plugin');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 var config = {
   entry: path.resolve(__dirname, 'client/src/index.js'),
@@ -16,8 +17,11 @@ var config = {
           loader: 'babel-loader?presets[]=es2015&presets[]=react'
       },
       { test: /\.css$/, loader: 'style-loader!css-loader' } 
-    ]
-  }
+    ],
+  },
+  // plugins: [
+  //   new BundleAnalyzerPlugin()
+  // ]
 };
 
 var plugins = {

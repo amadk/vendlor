@@ -23,6 +23,15 @@ class Navbar extends React.Component {
     });
   }
 
+  changeMode () {
+    axios.get('/api/auth/changemode').then(() => {
+      window.location.href = '/';
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
   search () {
     if (this.state.search.length > 0) {
       this.props.history.push('/?search='+this.state.search.split(' ').join('+'))
@@ -38,7 +47,7 @@ class Navbar extends React.Component {
 
   render() {
     const { visible, search } = this.state;
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn, admin } = this.props;
 
 
     return (
@@ -138,7 +147,7 @@ class Navbar extends React.Component {
                 flowing
                 hoverable
                 position='bottom right'
-                style={{/*margin: '10px', left: 0, top: 0*/ padding: '5px 20px'}}
+                style={{padding: '5px 20px'}}
                 on='click'
               >
                 <Popup.Header style={{margin: '5px 0'}}>Categories</Popup.Header>
@@ -170,11 +179,11 @@ class Navbar extends React.Component {
                       <Icon name={item.icon} size='large' />
                     </Menu.Item>
                   ))*/}
+                  <Menu.Item style={{height: '100%'}} as={Link} to='/addproduct'>
+                    <Icon name='add' size='large' />
+                  </Menu.Item>
                   <Menu.Item style={{height: '100%'}} as={Link} to='/cart'>
                     <Icon name='cart' size='large' />
-                  </Menu.Item>
-                  <Menu.Item style={{height: '100%'}} as={Link} to='/track'>
-                    <Icon name='truck' size='large' />
                   </Menu.Item>
                   {/*<Menu.Item onClick={this.signOut.bind(this)}>
                     <Icon name='sign out' size='large' />
@@ -183,6 +192,8 @@ class Navbar extends React.Component {
                       <Dropdown.Menu>
                         <Dropdown.Item text='Profile' as={Link} to='/profile' />
                         <Dropdown.Item text='Inventory' as={Link} to='/inventory' />
+                        <Dropdown.Item text='Track' as={Link} to='/track' />
+                        {admin ? <Dropdown.Item text='Admin Mode' onClick={this.changeMode.bind(this)} /> : <div/>}
                         <Dropdown.Item text='Sign Out' onClick={this.signOut.bind(this)} />
                       </Dropdown.Menu>
                     </Dropdown>
@@ -233,6 +244,7 @@ var information = [
 
 var items = [
   { path: '/', icon: 'home', title: 'Home' },
+  { path: '/addProduct', icon: 'add', title: 'Sell' },
   { path: '/cart', icon: 'cart', title: 'Cart' },
   { path: '/track', icon: 'truck', title: 'Track' },
   { path: '/inventory', icon: 'cubes', title: 'Inventory' },
@@ -261,7 +273,6 @@ var categories = [
   'Musical Instruments',
   'Pets',
   'Sports Equipment',
-  'Stuff Wanted',
   'Tickets and Vouchers',
   'Toys',
 ]

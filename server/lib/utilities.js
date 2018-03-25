@@ -29,16 +29,15 @@ var uploadPhotos = (photos, callback) => {
     console.log(photo);
 
     var photoKey = uuidv4()+'.'+photo.originalname.split('.')[1];
-
-    sharp(photo.buffer)
-    .resize(315, 315)
-    .toBuffer()
-    .then(bufferData => {
+    // sharp(photo.buffer)
+    // .resize(400, 300)
+    // .toBuffer()
+    // .then(bufferData => {
 
       const photoDataForS3 = {
         Bucket: AWSS3BUCKET,
         Key:  photoKey,
-        Body: bufferData,
+        Body: photo.buffer,
         ContentType: photo.mimetype
       };
 
@@ -51,11 +50,11 @@ var uploadPhotos = (photos, callback) => {
         }
         next()
       })
-    })
-    .catch( err => {
-      console.log(err);
-      return err;
-    });
+    // })
+    // .catch( err => {
+    //   console.log(err);
+    //   return err;
+    // });
   }).then(() => {
     callback(results)
   })

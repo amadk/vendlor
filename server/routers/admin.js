@@ -2,12 +2,24 @@ var express = require('express');
 
 var Account = require('../../db/models/index.js').Account;
 var Product = require('../../db/models/index.js').Product;
+var ProductPhoto = require('../../db/models/index.js').ProductPhoto;
+
 var BankAccount = require('../../db/models/index.js').BankAccount;
 var Payout = require('../../db/models/index.js').Payout;
 var Shipment = require('../../db/models/index.js').Shipment;
 var OrderedProduct = require('../../db/models/index.js').OrderedProduct;
 var forEachAsync = require('forEachAsync').forEachAsync;
+var request = require('request');
+var cheerio = require('cheerio');
+var uploadPhotos = require('../lib/utilities.js').uploadPhotos;
+var sharp = require('sharp');
+var multer = require('multer');
 
+const upload = multer({
+  storage: multer.memoryStorage(),
+  // file size limitation in bytes
+  limits: { fileSize: 52428800 },
+});
 
 
 var adminRouter = express.Router();
@@ -20,9 +32,99 @@ var Model = {
   shipments: Shipment
 }
 
+adminRouter.route('/addproduct')
+  .post(function(req, res) {
+    var link = req.body.productLink;
+    request(link, function (error, response, body) {
+      const $ = cheerio.load(body)
+      var price = $('.price.is.sk-clr1').text();
+      var cleanPrice = ''
+      for (var i = 42; i < 1000; i++) {
+        if (price[i] === '.') {
+          break;
+        }
+        if (price[i] !== ',') {
+          cleanPrice += price[i]
+        }
+        
+      }
+      console.log(cleanPrice)
+      console.log($('.small-12.columns.product-title h1').text());
+      console.log($('.small-12.columns.product-title span').children('a').eq(1).text());
+      console.log($('.large-12.medium-12 p').text());
+      console.log($('.ic-weight').next().text())
+      var photoLinks = $('.slider.gallary').find('.slide').map((i,el) => $(el).prop('data-thumb')).get();
+      var description = '';
+      if ($('#description-full').find('p').length > 0) {
+        $('#description-full').find('p').each((i, p) => {
+          description += $(p).text()+'\n\n';
+        })
+      }
+      if ($('#description-full').find('li').length > 0) {
+        $('#description-full').find('li').each((i, li) => {
+          description += '- '+$(li).text()+'\n\n';
+        })
+      }
+      Product.create({
+        title: $('.small-12.columns.product-title h1').text(),
+        price: cleanPrice,
+        quantity: 1,
+        category: req.body.category,
+        weight: req.body.weight,
+        condition: 'Perfect inside and out',
+        age: 'Brand New',
+        usage: 'Still in original packaging',
+        warranty: 'No',
+        description: description,
+        pickupAddressId: 'addr_e8f7fa994b5b409ab733',
+        live: true,
+        status: 'verified',
+      }).then(product => {
+        req.account.addProduct(product).then(() => {
+          var photosToUpload = [];
+          forEachAsync(photoLinks, (next, photoLink, index) => {
+            if (index === 6) {
+              next()
+            } else {
+              var photoLinkArr = photoLink.split('_');
+              photoLinkArr[1] = 'XXL';
+              photoLink = photoLinkArr.join('_');
+              request(photoLink, {encoding: null }, function (error, response, body) {
+                // console.log(body)
+                var photo = {
+                  buffer: body,
+                  originalname: photoLink.split('/').reverse()[0],
+                  mimetype: 'image/jpeg'
+                }
+                photosToUpload.push(photo)
+                // photosToUpload.push(body)
+                next();
+              });
+            }
+          }).then(() => {
+            uploadPhotos(photosToUpload, results => {
+              var photosToSave = results.map((photoKey, index) => {
+                return {
+                  order: index,
+                  key: photoKey
+                }
+              })
+              console.log(photosToSave)
+              ProductPhoto.bulkCreate(photosToSave).then(newProductPhotos => {
+                product.addProductPhotos(newProductPhotos).then(() => {
+                  res.send(newProductPhotos);              
+                })
+              })
+            })
+          })
+        })
+      })
+    });
+  })
+
 
 adminRouter.route('/:items')
-  .post(function(req, res, next) {
+  .post(function(req, res) {
     var searchParams = { order: [['createdAt', 'DESC']] };
     if (Object.keys(req.body).length > 0) { Object.assign(searchParams, {where: req.body}) }
 
@@ -52,7 +154,7 @@ adminRouter.route('/:items')
   })
 
 adminRouter.route('/:items/:itemId')
-  .post(function(req, res, next) {
+  .post(function(req, res) {
     const { items, itemId } = req.params
     if (items === 'shipments' && req.body.deliveredDate) { req.body.status = 'delivered' }
 

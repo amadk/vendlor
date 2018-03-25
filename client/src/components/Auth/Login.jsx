@@ -7,8 +7,8 @@ export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
+      email: 'amadxk@gmail.com',
+      password: 'Test@1234',
       visible: false,
       loading: false
     }

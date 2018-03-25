@@ -185,20 +185,20 @@ class Product extends React.Component {
           <Grid.Column mobile={16} tablet={16} computer={13}>
             <Grid>
               <Grid.Column mobile={16} tablet={7} computer={7}>
-                <Grid>
+                <Grid style={{position: 'sticky', top: '75px'}}>
                   <Grid.Column mobile={16} tablet={16} computer={16}>
                     <AutoPlaySwipeableViews index={this.state.slideIndex} onChange={this.handleSlideChange.bind(this)}>
                       {photos.map((photo, index) => (
-                        <Image fluid src={photo} key={index} verticalAlign='middle' onClick={this.handleOpen.bind(this)}  />
+                        <div style={{height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}} key={index}>
+                          <Image style={{maxHeight: 350, margin: 'auto', display: 'block'}} src={photo} onClick={this.handleOpen.bind(this)}  />
+                        </div>
                       ))}
                     </AutoPlaySwipeableViews>
                   </Grid.Column>
                   <Grid.Column mobile={16} tablet={16} computer={16}>
-                    <Image.Group size='mini'>
-                      {photos.map((photo, index) => (
-                        <Image src={photo} key={index} onClick={()=>{self.handleSlideChange(index)}} style={{cursor: 'pointer'}}/>
-                      ))}
-                    </Image.Group>
+                    {photos.map((photo, index) => (
+                      <Image style={{ maxHeight: 50, maxWidth: 50, margin: 5, cursor: 'pointer', display: 'inline'}} src={photo} key={index} onClick={()=>{self.handleSlideChange(index)}} />
+                    ))}
                   </Grid.Column>
                 </Grid>
               </Grid.Column>
@@ -286,7 +286,7 @@ class Product extends React.Component {
                   </Table> 
                   <Divider />
                   <Header as='h4'>Description</Header>
-                  <div style={{whiteSpace: 'pre'}}>{description}</div>
+                  <div style={{whiteSpace: 'pre-wrap'}}>{description}</div>
 
               </Grid.Column>
               {/*<Grid.Column mobile={16} tablet={4} computer={4}>

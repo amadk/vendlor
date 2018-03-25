@@ -46,10 +46,9 @@ export default class App extends React.Component {
     axios.get('/api/auth/isloggedin')
     .then(response => {
       self.setState({
-        token: response.data.token,
         authChecked: true,
         isLoggedIn: response.data.isLoggedIn,
-        userType: response.data.userType
+        userType: response.data.userType,
       })
     })
     .catch(function (error) {
@@ -64,9 +63,9 @@ export default class App extends React.Component {
 
     if (authChecked) {
       if (isLoggedIn) {
-        if (userType === 'user') {
+        if (userType === 'user' || userType === 'admin_user') {
           return (
-            <Navbar isLoggedIn={isLoggedIn}>
+            <Navbar isLoggedIn={isLoggedIn} admin={userType === 'admin_user'}>
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/inventory" component={Inventory} />
@@ -95,6 +94,8 @@ export default class App extends React.Component {
               </Switch>
             </AdminNav>
           )
+        } else {
+          return (<div></div>)
         }
       } else {
         return (

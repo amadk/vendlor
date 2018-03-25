@@ -93,8 +93,15 @@ var adminAccounts = ['amadxk@gmail.com'];
 app.get('/api/auth/isloggedin', (req, res) => {
   res.send({
     isLoggedIn: !!req.session.accountId,
-    userType: !req.account ? 'user' : (adminAccounts.indexOf(req.account.email) === -1 ? 'user' : 'admin')
+    userType: !req.account ? 'user' : (adminAccounts.indexOf(req.account.email) === -1 ? 'user' : req.session.mode || 'admin'),
   })
+})
+
+app.get('/api/auth/changemode', (req, res) => {
+  if (adminAccounts.indexOf(req.account.email) > -1) {
+    req.session.mode = req.session.mode === 'admin' || req.session.mode === undefined ? 'admin_user' : 'admin';
+    res.send('done');
+  }
 })
 
 app.get('/api/orderedProducts/return', (req, res) => {
@@ -113,7 +120,6 @@ app.get('/api/orderedProducts/return', (req, res) => {
     })
   })
 })
-
 
 app.use('/api/admin', adminRouter);
 

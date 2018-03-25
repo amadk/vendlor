@@ -7,13 +7,11 @@ export default props => {
   const product = props.item;
   return (
     <Segment attached='top'>
-      <Grid>
+      <div>
         {product.photos.map((photo, index2) => (
-          <Grid.Column mobile={8} tablet={3} computer={3} key={index2}>
-            <Image src={photo} />
-          </Grid.Column>
+          <Image style={{ maxHeight: 125, margin: '5px 10px', cursor: 'pointer', display: 'inline'}} src={photo} />
         ))}
-      </Grid>
+      </div>
       <Divider/>
       <Grid>
         <Grid.Column mobile={16} tablet={8} computer={8}>
