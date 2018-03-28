@@ -234,7 +234,9 @@ export default withRouter(Navbar)
 var information = [
   { link: '/information/about-us', text: 'About Us' },
   { link: '/information/faqs', text: 'FAQs' },
-  { link: '/information/how-it-works', text: 'How It Works' },
+  { link: '/information/how-to-buy', text: 'How To Buy' },
+  { link: '/information/how-to-return', text: 'How To Return' },
+  { link: '/information/how-to-sell', text: 'How To Sell' },
   { link: '/information/privacy-policy', text: 'Privacy Policy' },
   { link: '/information/return-policy', text: 'Return Policy' },
   { link: '/information/seller-terms-and-conditions', text: 'Seller Terms and Conditions' },

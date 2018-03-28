@@ -5,7 +5,9 @@ import axios from 'axios';
 
 import AboutUs from './AboutUs.jsx'
 import FAQs from './FAQs.jsx'
-import HowItWorks from './HowItWorks.jsx'
+import HowToBuy from './HowToBuy.jsx'
+import HowToReturn from './HowToReturn.jsx'
+import HowToSell from './HowToSell.jsx'
 import PrivacyPolicy from './PrivacyPolicy.jsx'
 import ReturnPolicy from './ReturnPolicy.jsx'
 import SellerTermsAndConditions from './SellerTermsAndConditions.jsx'
@@ -15,7 +17,9 @@ import TermsAndConditions from './TermsAndConditions.jsx'
 var components = {
   'about-us': AboutUs,
   faqs: FAQs,
-  'how-it-works': HowItWorks,
+  'how-to-buy': HowToBuy,
+  'how-to-return': HowToReturn,
+  'how-to-sell': HowToSell,
   'privacy-policy': PrivacyPolicy,
   'return-policy': ReturnPolicy,
   'seller-terms-and-conditions': SellerTermsAndConditions,
@@ -29,6 +33,10 @@ export default class Information extends React.Component {
     this.state = {
       Component: components[this.props.match.params.information]
     }
+  }
+
+  componentDidMount () {
+    this.getInfo(this.props)
   }
 
   componentWillReceiveProps (nextProps) {
