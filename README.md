@@ -1,2 +1,2 @@
 # Vendlor
-An E-commerce platform project based on reactjs and nodejs.
+An E-commerce platform project based on Reactjs, Nodejs and MySQL.
